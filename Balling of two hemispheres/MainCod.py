@@ -11,28 +11,20 @@ ball_dim = 25
 paddle_vel = 18
 
 level = 0
+pygame.init()
+pygame.mixer.init()
 
 
 
 # راه‌اندازی pygame
-pygame.init()
+
 win = pygame.display.set_mode((win_width, win_height))
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 26)  # فونت برای نمایش امتیاز
 big_font = pygame.font.Font(None, 72)  # فونت بزرگ برای نمایش امتیاز در حالت pause
 try :
-    icon_image = pygame.image.load("ICO.png")
-
-    # Set the desired size (e.g., double the original size)
-    new_width = icon_image.get_width() * 2
-    new_height = icon_image.get_height() * 2
-
-    # Resize the icon image
-    resized_icon = pygame.transform.scale(icon_image, (new_width, new_height))
-
-    # Use the resized icon in your game
-    # (e.g., set it as the game window icon)
-    pygame.display.set_icon(resized_icon)
+    icon = pygame.image.load('ICO.png')  # بارگذاری تصویر آیکون
+    pygame.display.set_icon(icon)  # تنظیم آیکون
 except:
     pass
 pygame.display.set_caption('Balling of Two hemispheres')  # تنظیم اسم
@@ -56,7 +48,16 @@ def draw_window(paddle1, paddle2, paddle_center, ball, score, elapsed_time, colo
 
 ball_vel = 8
 score = 0
+
+
+
 def main():
+    pygame.mixer.music.load('./sound/background.mp3')
+    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.play(-1)
+    ball_wall_collision_sound = pygame.mixer.Sound('./sound/-.mp3')
+    ball_paddle_collision_sound = pygame.mixer.Sound('./sound/+.mp3')
+    ball_paddle_center_sound = pygame.mixer.Sound('./sound/Center.mp3')
     global score
     ball_dim = 15  # تعریف اولیه ball_dim
     paddle1 = pygame.Rect(0, win_height / 2, paddle_width, paddle_height)
@@ -113,18 +114,21 @@ def main():
             if ball.colliderect(paddle1):
                 ball_dx *= -1
                 score += level + 1
+                pygame.mixer.Sound.play(ball_paddle_collision_sound)
                 # اگر توپ هنوز در دسته است، آن را به خارج از دسته منتقل کنید
                 if ball.colliderect(paddle1):
                     ball.left = paddle1.right
             elif ball.colliderect(paddle2):
                 ball_dx *= -1
                 score += level + 1
+                pygame.mixer.Sound.play(ball_paddle_collision_sound)
                 # اگر توپ هنوز در دسته است، آن را به خارج از دسته منتقل کنید
                 if ball.colliderect(paddle2):
                     ball.right = paddle2.left
             elif ball.colliderect(paddle_center):  # برخورد توپ با paddle_center
                 ball_dx *= -1
                 score += level
+                pygame.mixer.Sound.play(ball_paddle_center_sound)
                 # اگر توپ هنوز در دسته است، آن را به خارج از دسته منتقل کنید
                 if ball.colliderect(paddle_center):
                     ball.left = paddle_center.right if ball_dx > 0 else paddle_center.left
@@ -140,9 +144,11 @@ def main():
             if ball.left <= 0:
                 ball_dx *= -1
                 score += level -2  # کاهش امتیاز
+                pygame.mixer.Sound.play(ball_wall_collision_sound)
             if ball.right >= win_width:
                 ball_dx *= -1
                 score += level -2 # کاهش امتیاز
+                pygame.mixer.Sound.play(ball_wall_collision_sound)
             if ball.top <= 0 or ball.bottom >= win_height:
                 ball_dy *= -1
             if ball.colliderect(paddle1) or ball.colliderect(paddle2):
