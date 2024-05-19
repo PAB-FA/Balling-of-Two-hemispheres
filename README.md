@@ -6,7 +6,7 @@
 </p>
 
 ## How to play
-- Install the demo version from [here](https://github.com/PAB-FA/Balling-of-Two-hemispheres/releases/download/V0.10.2/Balling.of.Two.hemispheres.rar)
+- Download the demo version from [here](https://github.com/PAB-FA/Balling-of-Two-hemispheres/releases/download/V0.10.2/Balling.of.Two.hemispheres.rar)
 - With W and S Key you can control the left pedal
 - You can control the right pedal with up and down arrows
 - Spacebar can save the game
