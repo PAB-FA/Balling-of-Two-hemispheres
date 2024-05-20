@@ -14,6 +14,8 @@
 
 ## screenshot
 
+![Recording 2024-05-20 114235](https://github.com/PAB-FA/Balling-of-Two-hemispheres/assets/169495280/68200d26-b485-4b2c-af60-fadf0bb547ef)
+
 <img src="https://github.com/PAB-FA/Balling-of-Two-hemispheres/blob/main/pic/1.png"/>
 
 <img src="https://github.com/PAB-FA/Balling-of-Two-hemispheres/blob/main/pic/2.png"/>
